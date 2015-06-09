@@ -1,0 +1,63 @@
+/* Optimal page replacement algorithm gives the best performance as it produces minimum number of page faults.However, the algorithm is difficult to implement because the future knowledge of the reference string is required */
+#include <stdio.h>
+
+void main()
+{
+ int pos,c,m,maxi,i,k,nf,count,j=0,pf=0,np=0;
+ printf("enter no. of pages");
+ scanf("%d",&np);
+ int s[np];
+ printf("Enter pages sequence :\n");
+ for(i=0;i<np;i++)
+  scanf("%d",&s[i]);
+ printf("enter the no. of frames");
+ scanf("%d",&nf);
+ int q[nf],q1[nf];
+ for(i=0;i<nf;i++)
+  q[i]=-1;
+ for(i=0;i<np;i++)
+ {maxi=0;
+ for(m=0;m<nf;m++)
+  q1[m]=-1;
+  c=0;
+  for(k=0;k<nf;k++)
+   if(s[i]==q[k])
+    c++;
+  if(c==0)
+  {
+   if(q[nf-1]==-1)
+   {
+    q[j]=s[i];
+    pf++;
+    j++;
+	for(k=0;k<nf;k++)
+	printf("%d\t",q[k]);
+	printf("-> %d\n",pf);
+   }
+   else {
+    for(j=0;j<nf;j++){
+	 for(m=i+1,count=0;m<np;m++,count++)
+	  if(q[j]==s[m] &&  q1[j]==-1) 
+	   q1[j]=count;
+	  if(q1[j]==-1){
+	  for(m=0;m<i;m++,count++)
+                   if(q[j]==s[m] && q1[j]==-1)
+	    q1[j]=count;
+	 }
+	}
+	for(m=0;m<nf;m++)
+	 if(q1[m]>maxi){
+	  maxi=q1[m];
+	  pos=m;}
+   	 q[pos]=s[i];pf++;
+	for(m=0;m<nf;m++)
+	 printf("%d ",q[m]);
+	printf("-> %d\n",pf);
+	
+	
+	}
+               }
+     }printf("the total no. of page faults are: %d",pf);
+           
+}
+
